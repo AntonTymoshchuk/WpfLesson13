@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<phoneList>
+  <phone ff="p">
+    <ind>0 </ind>
+    <Name dd="aaa">Masha </Name>
+    <LastName>Простокваша </LastName>
+    <Number>97857646</Number>
+  </phone>
+  <phone ff="o">
+    <ind>1</ind>
+    <Name>Анна</Name>
+    <LastName>Ванна</LastName>
+    <Number>38676355</Number>
+  </phone>
+  <phone ff="i">
+    <ind>2</ind>
+    <Name>Елена</Name>
+    <LastName>Полено</LastName>
+    <Number>49737680</Number>
+  </phone>
+</phoneList>

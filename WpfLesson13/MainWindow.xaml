@@ -1,0 +1,69 @@
+﻿<Window x:Class="WpfLesson13.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfLesson13"
+        xmlns:models="clr-namespace:WpfLesson13.Models"
+        mc:Ignorable="d"
+        x:Name="treeWindow"
+        Title="Tree window ***)))***:)" Width="600" Height="500">
+    <Window.Resources>
+        <models:Year x:Key="myyear" Number="2020"></models:Year>
+        <SolidColorBrush x:Key="solidColorBrush">
+            <SolidColorBrush.Color>
+                <Color R="100" G="155" B="255" A="255"/>
+            </SolidColorBrush.Color>
+        </SolidColorBrush>
+
+        <XmlDataProvider x:Key="xmlList" Source="XMLfile.xml" XPath="phoneList/phone[@ff='p']"/>
+        <ObjectDataProvider x:Key="products" ObjectType="{x:Type models:ProductProvider}" MethodName="GetProducts"/>
+
+        <DataTemplate DataType="{x:Type models:Month}">
+            <TextBlock Text="{Binding Name}"/>
+        </DataTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type models:Season}" ItemsSource="{Binding Months}">
+            <TextBlock Text="{Binding Name}"></TextBlock>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate DataType="{x:Type models:Year}" ItemsSource="{Binding Seasons}">
+            <TextBlock Text="{Binding Name}"></TextBlock>
+        </HierarchicalDataTemplate>
+    </Window.Resources>
+    <Grid Background="Bisque">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TreeView Grid.Row="0" x:Name="yearTreeView"/>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="{Binding ElementName=treeWindow, Path=Title}"/>
+            <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}, Path=Background}"/>
+            <TextBlock Tag="hello" Text="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Tag}"/>
+            <TextBlock Text="{StaticResource str}"/>
+            <TextBlock Text="{Binding Source={StaticResource myyear}, Path=Number}"/>
+            <TextBlock Background="{StaticResource solidColorBrush}" Text="Color"/>
+            <ListBox ItemsSource="{Binding Source={StaticResource xmlList}}">
+                <!--<ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding XPath=Name}"/>
+                            <TextBlock Text="{Binding XPath=LastName}"/>
+                            <TextBlock Text="{Binding XPath=Number}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>-->
+            </ListBox>
+            <ListBox ItemsSource="{Binding Source={ StaticResource products }}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Margin="10,0" Text="{Binding Price}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
+    </Grid>
+</Window>
